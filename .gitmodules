@@ -1,0 +1,7 @@
+[submodule "public"]
+	path = public
+	url = https://github.com/alipullup/alipullup.github.io.git
+	branch = master
+[submodule "themes/hugo-PaperMod"]
+	path = themes/hugo-PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git

@@ -1,0 +1,6 @@
+baseURL = "https://alipullup.github.io/"
+languageCode = "en-us"
+title = "Ali's Posts"
+theme = "hugo-PaperMod"
+
+
