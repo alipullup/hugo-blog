@@ -1,6 +1,6 @@
 ---
 title: "What I Learned 2020-10-26"
-date: 2020-20-26
+date: 2020-10-26
 draft: false
 ---
 

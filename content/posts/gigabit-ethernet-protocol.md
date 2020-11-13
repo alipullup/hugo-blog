@@ -34,14 +34,14 @@ Of the above, (3) was the most difficult. Each client’s network is slightly di
 2.  Unpredictable process scheduling. We decided to create a user-space client (not running as a kernel driver). In hindsight, it would’ve been better to invest the resources in creating some sort of driver. As it stands, the operating system may decide to run something else for 10 milliseconds.
 3.  Unpredictable network conditions. We ended up suggesting the use of [hardware-based flow control](https://en.wikipedia.org/wiki/Ethernet_flow_control) to deal with various sources of packet loss.
 
-Overall, the most difficult customer questions were never “it doesn’t work”, they were always “why is it sometimes slow?”.
+Overall, the most difficult customer questions were never "it doesn’t work", they were always "why is it sometimes slow?".
 
-To answer the “why is it slow” question, we ended up:
+To answer the "why is it slow" question, we ended up:
 
 *   Adding tunable logging to the portable C client
 *   Adding a tunable set of counters to the portable C client
-*   Noticing “anomalies” in the client and logging them (e.g. sudden jump in RTT or loss)
-*   Creating various “dry run” and “simulated data” modes to test individual pieces of the client:
+*   Noticing "anomalies" in the client and logging them (e.g. sudden jump in RTT or loss)
+*   Creating various "dry run" and "simulated data" modes to test individual pieces of the client:
     *   A mode to benchmark and test the disk bandwidth. Some times clients were running on a 5 year old laptop connected to a USB drive, when we recommended the latest blade server.
     *   A mode to benchmark and test the network bandwidth. Some cheap switches are terrible, and do bad things to packets.
 
@@ -53,21 +53,22 @@ There are various messages: some go from the FPGA to the C client, others go fro
 
 Format of the general header:
 
-|Field|Length (bytes)|Description|
-|--- |--- |--- |
-|Version|1|Identifies a protocol version. The first version of the protocol will be 0.|
-|Type|1|Type of the message.  Currently we have the following types of messages defined:
+| Field   | Length (bytes)|Description|
+| ------- |-----|----|
+| Version | 1   | Identifies a protocol version. The first version of the protocol will be 0.|
+| Type    | 1   | Type of the message (see below) |
+| Reserved| 2   | Reserved bytes for future use.  Should be set to zero (0) when transmitted. |
+| | | The rest of the message depends on the _Type_ field.|
 
-DATA(0) – This message contains data.
 
-ACK(1) – This is an acknowledgment message.
+Currently we have the following types of messages defined:
 
-NAK(2) – This is a negative acknowledgment message.  
-OPEN(3) – This is an open message.
+* DATA(0) - This message contains data.
+* ACK(1) - This is an acknowledgment message.
+* NAK(2) - This is a negative acknowledgment message.
+* OPEN(3) - This is an open message.
+* CLOSE(4) - This is a close message.|
 
-CLOSE(4) – This is a close message.|
-|Reserved|2|Reserved bytes for future use.  Should be set to zero (0) when transmitted.|
-|||The rest of the message depends on the _Type_ field.|
 
 ## Data Message
 
@@ -75,7 +76,6 @@ The DATA message is sent by the **server to the client**. It contains a single b
 
 |Field|Length (bytes)|Description|
 |--- |--- |--- |
-
 |Estimated RTT (RTT)|4|The current estimated RTT in microseconds.|
 |Block Number (BN)|2|Contains a block number.  The data in the message belongs to this block.|
 |Time Stamp (TS)|4|Time stamp sent by server to client.  This will be echoed back by the client in the ACK.|
@@ -139,7 +139,7 @@ When the protocol is implemented on top of IP/UDP, the full PDU will look someth
 |LR|Version|28|1|
 |LR|Type|29|1|
 |LR|Reserved|30|2|
-|**Type** specific data.||||
+|| **Type** specific data.|||
 
 
 This adds up to a total of 32 + 10 bytes for a DATA packet, not including the data.
@@ -150,16 +150,16 @@ Assuming that we’re carrying the protocol atop UDP, and that:
 
 
 ```
-Ethernet Overhead   ← 8 + 14 → 22 bytes 
-IP + UDP Overhead   ← 20 + 8 → 28 bytes
+Ethernet Overhead       ← 8 + 14 → 22 bytes
+IP + UDP Overhead       ← 20 + 8 → 28 bytes
 Protocol Header Size    ← 4 + 2 + 4 → 10 bytes
-Protocol Data Size  ← Block_Size → 1440
-Ethernet FCS        ← 4 bytes
-Ethernet IPG        ← 12 bytes
+Protocol Data Size      ← Block_Size → 1440
+Ethernet FCS            ← 4 bytes
+Ethernet IPG            ← 12 bytes
 
 Total Overhead  ← 22 + 28 + 10 + 4 + 12 → 76 bytes
 Total Bytes     ← Total Overhead + Block_Size
-            → 76 + 1440 → 1516
+                → 76 + 1440 → 1516
 
 Bandwidth       ← 10^9 bits / second
 ```

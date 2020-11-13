@@ -27,3 +27,19 @@ will assign `x` to `ffffffff80000000`
   - The "consume" function has a "batch" variant (to amortize the spinlock overhead I assume)
 - [USB4](https://en.wikipedia.org/wiki/USB4) allows tunneling USB 3.2, DisplayPort 1.4, PCI Express(!)
 - [RPC100](https://github.com/curtiszimmerman/rcp100) is a great little Linux router distribution
+- A work colleague mentioned an interesting issue where interrupts were msised from a PCI Express device.
+  The old code (provided by the vendor) did status register reads in a Linux application. The workaround was to
+  read in the kernel. Looking at `lspci` the BAR is mapped `prefetchable` where as the status register is clear-on-read.
+  I wonder if this explains the issue?
+- Linux has an upstream driver for
+  [Prestera DX](https://github.com/torvalds/linux/commits/master/drivers/net/ethernet/marvell/prestera)
+  - this was added in September 2020
+- Intel sponsors something called the [0-Day service](https://01.org/lkp/documentation/0-day-test-service)
+  this will run [Linux kernel performance tests](https://github.com/intel/lkp-tests)
+  and send emails (from "kernel test robot") when a test fails (regression).
+- Linux [netdevice.h](https://github.com/torvalds/linux/blob/585e5b17b92dead8a3aca4e3c9876fbca5f7e0ba/include/linux/netdevice.h)
+  has functions for incrementing statistics:
+  - `dev_sw_netstats_rx_add` updates `pcpu_sw_netstats`
+  - `dev_sw_netstats_tx_add` (not committed to file yet)
+  - `dev_lstats_add` updates `pcpu_lstats` - not sure who looks at what!
+- Switched blog to [Hugo](https://gohugo.io/) and started publishing weekly links, instead of technical notes, which are rare.

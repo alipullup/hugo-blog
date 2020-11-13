@@ -16,11 +16,11 @@ On one platform we had issues with the QSPI flash. On another platform we had me
 
 The system jumps to the `_start` routine. This is mapped to a known address in Flash.
 
-![U-Boot Startup](images/uboot-startup-startS.png)
+![U-Boot Startup](/image/uboot-startup-startS.png)
 
 The `board_init_f` function calls various other functions:
 
-![Function board_init_f](images/uboot-board_init_f.png)
+![Function board_init_f](/image/uboot-board_init_f.png)
 
 # DTS File overview
 
@@ -32,11 +32,11 @@ The dts file describes resources found on the chip, including:
 *   I2C devices
 *   etc.
 
-![U-Boot DTS Overview](images/u-boot-dts--overview.png)
+![U-Boot DTS Overview](/image/u-boot-dts--overview.png)
 
 ## Location
 
-The =.dts= file is found in
+The `.dts` file is found in
 
 (REMOVED)
 
@@ -46,7 +46,7 @@ The dts file consists of nodes, with properties and children.
 
 *   Text strings (null terminated) are represented with double quotes:
     *   `string-property = "a string"`
-*   ‘Cells’ are 32 bit unsigned integers delimited by angle brackets:
+*   'Cells' are 32 bit unsigned integers delimited by angle brackets:
     *   `cell-property = <0xbeef 123 0xabcd1234>`
 *   Binary data is delimited with square brackets:
     *   `binary-property = [0x01 0x23 0x45 0x67]`
@@ -70,7 +70,7 @@ The `compatible` property is a list of strings:
 1.  The first string specifies the exact device
 2.  The following strings represent other devices that the device is _compatible_ with
 
-## Addressing (=reg=, =#address-cells=, =#size-cells=)
+## Addressing (`reg`, `#address-cells`, `#size-cells`)
 
 Each addressable device gets a =reg= which is a list in the form
 
