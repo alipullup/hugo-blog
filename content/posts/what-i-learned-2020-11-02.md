@@ -1,6 +1,7 @@
 ---
 title: "What I Learned 2020-11-02"
 date: 2020-11-02
+tags: ["what-i-learned"]
 draft: false
 ---
 
