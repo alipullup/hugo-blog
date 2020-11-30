@@ -1,0 +1,9 @@
+{{- if not (.Page.Scratch.Get "katex") -}}
+<!-- Include katext only first time -->
+<link rel="stylesheet" href="{{ "katex-v0.12.0/katex.min.css" | relURL }}" />
+<script defer src="{{ "katex-v0.12.0/katex.min.js" | relURL }}"></script>
+<script defer src="{{ "katex-v0.12.0/auto-render.min.js" | relURL }}" onload="renderMathInElement(document.body);"></script>
+{{- .Page.Scratch.Set "katex" true -}}
+{{- end -}}
+
+<span>\( {{- trim .Inner "\n" -}} \)</span>
