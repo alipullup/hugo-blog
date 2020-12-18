@@ -33,7 +33,7 @@ draft: false
   - Data should be free'd when skb is free'd, and
   - Data is not going to be needed in the normal case (udp, tcp, ...), and
   - No actions needed on clone/free (e.g. callbacks)
-  Alternatives:
+- Alternatives to adding data in SKB extensions:
   - Store data in shared info `struct skb_shared_info` block (unchanged on clone), or
   - Add second control buffer block at end of `struct sk_buff`, or
   - Add a control block at end of `struct skb_buff_fclones` (only works for outgoing SKBs allocated via `alloc_skb_fclone`)
