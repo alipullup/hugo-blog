@@ -24,4 +24,3 @@ draft: false
 - [Scapy](https://scapy.net/) to the rescue! I needed to build a raw UDP frame and a colleague was sending packets, using 
   [tcpdump](https://en.wikipedia.org/wiki/Tcpdump) to capture when he could have done the following: 
   `Ether(dst='FF:FF:FF:FF:FF:FF', src='01:02:03:04:05:06') /IP(dst='255.255.255.255', src='192.168.1.1', id=5683, flags='DF') / UDP(sport=1234, dport=1234) / Raw('test\n')`
-- Foo

@@ -11,4 +11,3 @@ draft: false
 - [Interesting Linux kernel issue](https://bugzilla.kernel.org/show_bug.cgi?id=209725) 
   where L1 [ASPM](https://en.wikipedia.org/wiki/Active_State_Power_Management) was calculated incorrectly 
   thus leading to slow network performance.
-- 
