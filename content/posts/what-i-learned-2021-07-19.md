@@ -9,4 +9,3 @@ draft: false
 - [smidump](https://linux.die.net/man/1/smidump) can pretty print MIBs
 - [Cisco audit logs](https://www.cisco.com/en/US/docs/ios/security/configuration/guide/sec_rout_audit_logs_support_TSD_Island_of_Content_Chapter.html) includes hashes. At first I thought this would be a [linear hash chain](https://en.wikipedia.org/wiki/Hash_chain) for  non-repudiation, e.g. to ensure no one tampers with the logs. It turns out to be simpler: they periodically hash the output of `show running-config`, the file system etc. and put this in the audit logs. 
 - IANA has a [large list of protocol registries](https://www.iana.org/protocols) with assigned numbers. Interesting read.
-- 
